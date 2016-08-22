@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10A963E91D6AD4FF00AB6DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 10A963E81D6AD4FF00AB6DB4 /* README.md */; };
 		DB937B811D3B9FF400CBC634 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DB937B801D3B9FF400CBC634 /* main.m */; };
 		DB937B841D3B9FF400CBC634 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB937B831D3B9FF400CBC634 /* AppDelegate.m */; };
 		DB937B8A1D3B9FF400CBC634 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB937B881D3B9FF400CBC634 /* Main.storyboard */; };
@@ -51,10 +52,10 @@
 		DB937C1A1D3BCE4A00CBC634 /* LTDBShopCar.m in Sources */ = {isa = PBXBuildFile; fileRef = DB937C191D3BCE4A00CBC634 /* LTDBShopCar.m */; };
 		DB937C291D3C442C00CBC634 /* GuoupGood.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB937C281D3C442C00CBC634 /* GuoupGood.plist */; };
 		DB937C2C1D3C486300CBC634 /* ShopCarGruopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DB937C2B1D3C486300CBC634 /* ShopCarGruopModel.m */; };
-		DB937C2E1D3C6F6000CBC634 /* ReadMe in Resources */ = {isa = PBXBuildFile; fileRef = DB937C2D1D3C6F5F00CBC634 /* ReadMe */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10A963E81D6AD4FF00AB6DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DB937B7C1D3B9FF400CBC634 /* LocaShopCar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocaShopCar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB937B801D3B9FF400CBC634 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DB937B821D3B9FF400CBC634 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -142,7 +143,6 @@
 		DB937C281D3C442C00CBC634 /* GuoupGood.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GuoupGood.plist; sourceTree = "<group>"; };
 		DB937C2A1D3C486300CBC634 /* ShopCarGruopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarGruopModel.h; sourceTree = "<group>"; };
 		DB937C2B1D3C486300CBC634 /* ShopCarGruopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarGruopModel.m; sourceTree = "<group>"; };
-		DB937C2D1D3C6F5F00CBC634 /* ReadMe */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +160,7 @@
 		DB937B731D3B9FF300CBC634 = {
 			isa = PBXGroup;
 			children = (
-				DB937C2D1D3C6F5F00CBC634 /* ReadMe */,
+				10A963E81D6AD4FF00AB6DB4 /* README.md */,
 				DB937C121D3BCD6F00CBC634 /* libsqlite3.0.tbd */,
 				DB937B7E1D3B9FF400CBC634 /* LocaShopCar */,
 				DB937B7D1D3B9FF400CBC634 /* Products */,
@@ -448,7 +448,6 @@
 				DB937BFE1D3BBA4F00CBC634 /* IQKeyboardManager.bundle in Resources */,
 				DB937B8F1D3B9FF400CBC634 /* LaunchScreen.storyboard in Resources */,
 				DB937B8C1D3B9FF400CBC634 /* Assets.xcassets in Resources */,
-				DB937C2E1D3C6F6000CBC634 /* ReadMe in Resources */,
 				DB937B8A1D3B9FF400CBC634 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +489,7 @@
 				DB937B841D3B9FF400CBC634 /* AppDelegate.m in Sources */,
 				DB937C0D1D3BCD2500CBC634 /* FMDatabaseAdditions.m in Sources */,
 				DB937BF81D3BBA4F00CBC634 /* IQTextView.m in Sources */,
+				10A963E91D6AD4FF00AB6DB4 /* README.md in Sources */,
 				DB937BC61D3BAF3200CBC634 /* NSObject+MJProperty.m in Sources */,
 				DB937BF91D3BBA4F00CBC634 /* IQBarButtonItem.m in Sources */,
 				DB937BF41D3BBA4F00CBC634 /* IQUIViewController+Additions.m in Sources */,
