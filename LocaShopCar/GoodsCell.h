@@ -14,10 +14,13 @@ typedef enum : NSUInteger {
 
 } CellType;
 
-@class ShopCarModel;
+@class ShopCarGruopModel;
 @interface GoodsCell : UITableViewCell
 
-- (void) cellDataWithModel:(ShopCarModel*)model;
+- (void) cellDataWithModel:(NSIndexPath*)indexPath andGroupModel:(ShopCarGruopModel *)model;
+
+/** 选中回调 */
+@property (nonatomic,copy) dispatch_block_t callBlock;
 
 /** 购买点击回调 */
 @property (nonatomic,copy) dispatch_block_t btBlock;
@@ -27,5 +30,6 @@ typedef enum : NSUInteger {
 
 /** cell类型 */
 @property (nonatomic,assign) CellType  cellType;
+
 
 @end

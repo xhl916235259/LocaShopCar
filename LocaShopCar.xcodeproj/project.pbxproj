@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		10A963E91D6AD4FF00AB6DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 10A963E81D6AD4FF00AB6DB4 /* README.md */; };
+		D9F6117B1D6C12C700C3E0A3 /* ShopCarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F6117A1D6C12C700C3E0A3 /* ShopCarHeaderView.m */; };
 		DB937B811D3B9FF400CBC634 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DB937B801D3B9FF400CBC634 /* main.m */; };
 		DB937B841D3B9FF400CBC634 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB937B831D3B9FF400CBC634 /* AppDelegate.m */; };
 		DB937B8A1D3B9FF400CBC634 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB937B881D3B9FF400CBC634 /* Main.storyboard */; };
@@ -56,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		10A963E81D6AD4FF00AB6DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D9F611791D6C12C700C3E0A3 /* ShopCarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarHeaderView.h; sourceTree = "<group>"; };
+		D9F6117A1D6C12C700C3E0A3 /* ShopCarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarHeaderView.m; sourceTree = "<group>"; };
 		DB937B7C1D3B9FF400CBC634 /* LocaShopCar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocaShopCar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB937B801D3B9FF400CBC634 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DB937B821D3B9FF400CBC634 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -230,6 +233,8 @@
 			children = (
 				DB937BC81D3BB38100CBC634 /* GoodsCell.h */,
 				DB937BC91D3BB38100CBC634 /* GoodsCell.m */,
+				D9F611791D6C12C700C3E0A3 /* ShopCarHeaderView.h */,
+				D9F6117A1D6C12C700C3E0A3 /* ShopCarHeaderView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -461,6 +466,7 @@
 			files = (
 				DB937BF21D3BBA4F00CBC634 /* IQUITextFieldView+Additions.m in Sources */,
 				DB937BFD1D3BBA4F00CBC634 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				D9F6117B1D6C12C700C3E0A3 /* ShopCarHeaderView.m in Sources */,
 				DB937BFB1D3BBA4F00CBC634 /* IQTitleBarButtonItem.m in Sources */,
 				DB937BF71D3BBA4F00CBC634 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				DB937BA51D3BAEAE00CBC634 /* ShopCarModel.m in Sources */,

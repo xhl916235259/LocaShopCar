@@ -10,4 +10,7 @@
 
 @interface GoodsController : UITableViewController
 
+/** 添加商品回调 */
+@property (nonatomic,copy) void (^callBack) (id model);
+
 @end

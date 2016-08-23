@@ -19,4 +19,7 @@
 /** 商品集合 */
 @property (nonatomic,strong) NSMutableArray * goods;
 
+/** 是否选中 */
+@property (nonatomic,assign,getter=isSelect) BOOL  select;
+
 @end

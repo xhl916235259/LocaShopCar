@@ -29,7 +29,7 @@
 @property (nonatomic,assign) int  goodsSelectCount;
 
 /** 是否选中 */
-@property (nonatomic,assign) int  select;
+@property (nonatomic,assign,getter=isSelect) BOOL  select;
 
 
 @end

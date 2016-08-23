@@ -87,7 +87,7 @@
 {
     ShopCarGruopModel *groupModel = self.cellDatas[indexPath.section];
     GoodsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsCell"];
-    [cell cellDataWithModel:groupModel.goods[indexPath.row]];
+    [cell cellDataWithModel:indexPath andGroupModel:groupModel];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     __weak typeof(self) weakSelf = self;
     cell.btBlock = ^(){
@@ -107,6 +107,11 @@
     UIAlertAction * rightAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ShopCarGruopModel *groupModel = self.cellDatas[indexPath.section];
         [[LTDBShopCar shareInstance] insertUser:groupModel.goods[indexPath.row]];
+        
+        if (self.callBack) {
+            self.callBack(groupModel.goods[indexPath.row]);
+        }
+        
     }];
     [alertVc addAction:leftAction];
     [alertVc addAction:rightAction];

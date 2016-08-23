@@ -12,10 +12,14 @@
 #import "GoodsCell.h"
 #import "LTDBShopCar.h"
 #import "ShopCarGruopModel.h"
+#import "ShopCarHeaderView.h"
 
 @interface ShopCarController ()<UITableViewDataSource>
-
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *buttomChooseBt;
 @property (strong,nonatomic) NSMutableArray * cellDatas;
+@property (weak, nonatomic) IBOutlet UILabel *numberLbl;
+@property (weak, nonatomic) IBOutlet UILabel *totalPriceLbl;
 
 @end
 
@@ -29,12 +33,48 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //每次将要进入前清除数据
-    [self.cellDatas removeAllObjects];
+   
+    [self allIsSelect];
+    [self.tableView reloadData];
+    [self settingTotalPrice];
+}
+
+/**
+ *  处理选中状态
+ */
+- (void)allIsSelect
+{
     //从数据库获取数据
     NSArray * arr = [[LTDBShopCar shareInstance] getShopCarModel];
-   [self.cellDatas addObjectsFromArray:arr];
-    [self.tableView reloadData];
+    
+    
+    [arr enumerateObjectsUsingBlock:^(ShopCarGruopModel * groupModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        //
+        if (self.cellDatas.count > idx) {
+            
+            ShopCarGruopModel * localModel = self.cellDatas[idx];
+            
+            groupModel.select = localModel.select;
+            
+            [groupModel.goods enumerateObjectsUsingBlock:^(ShopCarModel * carObj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                if (localModel.goods.count > idx) {
+                    
+                    ShopCarModel * model = localModel.goods[idx];
+                    carObj.select = model.select;
+                }
+                
+            }];
+        }
+        
+    }];
+    
+    //每次将要进入前清除数据,判断选中状态之后清除
+    [self.cellDatas removeAllObjects];
+    //添加
+    [self.cellDatas addObjectsFromArray:arr];
+
 }
 
 //懒加载
@@ -49,17 +89,25 @@
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    __weak typeof(self) weakSelf = self;
     ShopCarGruopModel *groupModel = self.cellDatas[section];
-    UILabel * headerLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    headerLbl.backgroundColor = [UIColor whiteColor];
-    headerLbl.textColor = [UIColor blueColor];
-    headerLbl.text = [NSString stringWithFormat:@"   %@",groupModel.shopName];
-    return headerLbl;
+    ShopCarHeaderView * headerView = [ShopCarHeaderView backHeaderViewWithTableView:tableView];
+    [headerView headerViewDataWtihModel:groupModel];
+    headerView.callBack = ^(){
+        [weakSelf reloadTableViewWithSection:section];
+    };
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.001;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 40;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -83,13 +131,85 @@
     ShopCarGruopModel *groupModel = self.cellDatas[indexPath.section];
     GoodsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ShopCarCell"];
     cell.cellType = ShopCarCellType;
-    [cell cellDataWithModel:groupModel.goods[indexPath.row]];
+    [cell cellDataWithModel:indexPath andGroupModel:groupModel];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     __weak typeof(self) weakSelf = self;
     cell.deleteBlock = ^(){
         [weakSelf dealDeleteResult:indexPath];
     };
+    cell.callBlock = ^(){
+        [weakSelf reloadTableViewWithSection:indexPath.section];
+    };
+
     return cell;
+}
+
+- (void)reloadTableViewWithSection:(NSInteger)section
+{
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
+    [self settingTotalPrice];
+}
+
+- (IBAction)buttomTotalPrice:(id)sender {
+    
+    BOOL isSelect = ![[[self buttomInfo] valueForKey:@"isSelect"] boolValue];
+    [self.cellDatas enumerateObjectsUsingBlock:^(ShopCarGruopModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.select = isSelect;
+        [obj.goods enumerateObjectsUsingBlock:^(ShopCarModel * carObj, NSUInteger idx, BOOL * _Nonnull stop) {
+            carObj.select = isSelect;
+        }];
+    }];
+    [self settingTotalPrice];
+    [self.tableView reloadData];
+}
+
+//是否全选,选中商品的总价，选中商品的数量
+- (NSDictionary *)buttomInfo
+{
+    __block BOOL isSelect = NO;
+    __block double allPrice = 0.00;
+    __block int    selectCOunt = 0;
+    [self.cellDatas enumerateObjectsUsingBlock:^(ShopCarGruopModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+       
+        [obj.goods enumerateObjectsUsingBlock:^(ShopCarModel * carModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (carModel.isSelect == YES) {
+                allPrice += carModel.price * carModel.goodsSelectCount;
+                selectCOunt += carModel.goodsSelectCount;
+            }
+        }];
+        
+        if (obj.select == NO) {//如果为当前有商品未被选中，跳出循环
+            isSelect = NO;
+            *stop = YES;
+        }else if (idx == (self.cellDatas.count -1 )){
+            isSelect = YES;
+        }
+        
+        
+    }];
+    NSDictionary * buttomInfo = @{@"allPrice":@(allPrice),
+                                  @"selectCOunt":@(selectCOunt),
+                                  @"isSelect":@(isSelect)};
+    return buttomInfo;
+}
+
+/**
+ *  设置底部总价信息
+ */
+- (void)settingTotalPrice
+{
+    //设置图片
+    UIImage * selectImg = [[[self buttomInfo] valueForKey:@"isSelect"] boolValue]? [UIImage imageNamed:@"tm_mcart_checked"] : [UIImage imageNamed:@"tm_mcart_unchecked"];
+    [self.buttomChooseBt setImage:selectImg forState:UIControlStateNormal];
+    
+    //设置购买数量
+    int count = [[[self buttomInfo] objectForKey:@"selectCOunt"] intValue];
+    self.numberLbl.text = [NSString stringWithFormat:@"数量: %d",count];
+    
+    //设置总价
+    double allPrice = [[[self buttomInfo] objectForKey:@"allPrice"] doubleValue];
+    self.totalPriceLbl.text = [NSString stringWithFormat:@"总价: %.2f",allPrice];
+    
 }
 
 //删除购物车数据
@@ -114,6 +234,8 @@
                 }else{
                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
                 }
+                
+                [self settingTotalPrice];
                 
                 
             });
